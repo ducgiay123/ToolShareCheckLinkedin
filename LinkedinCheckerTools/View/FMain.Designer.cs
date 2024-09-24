@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FMain));
             this.dtgrvdata = new System.Windows.Forms.DataGridView();
             this.clstt = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -72,6 +73,10 @@
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.lbretriesC = new System.Windows.Forms.ToolStripLabel();
+            this.tmupdatecount = new System.Windows.Forms.Timer(this.components);
+            this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
+            this.lbfailedC = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.dtgrvdata)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -150,6 +155,7 @@
             this.btnimportproxy.TabIndex = 30;
             this.btnimportproxy.Text = "Import Proxy";
             this.btnimportproxy.UseVisualStyleBackColor = true;
+            this.btnimportproxy.Click += new System.EventHandler(this.btnimportproxy_Click);
             // 
             // btnimportdata
             // 
@@ -159,28 +165,31 @@
             this.btnimportdata.TabIndex = 29;
             this.btnimportdata.Text = "Import Data";
             this.btnimportdata.UseVisualStyleBackColor = true;
+            this.btnimportdata.Click += new System.EventHandler(this.btnimportdata_Click);
             // 
             // btnresultFolder
             // 
             this.btnresultFolder.Image = ((System.Drawing.Image)(resources.GetObject("btnresultFolder.Image")));
             this.btnresultFolder.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnresultFolder.Location = new System.Drawing.Point(378, 84);
+            this.btnresultFolder.Location = new System.Drawing.Point(378, 87);
             this.btnresultFolder.Name = "btnresultFolder";
             this.btnresultFolder.Size = new System.Drawing.Size(131, 34);
             this.btnresultFolder.TabIndex = 28;
             this.btnresultFolder.Text = "Result Folder";
             this.btnresultFolder.UseVisualStyleBackColor = true;
+            this.btnresultFolder.Click += new System.EventHandler(this.btnresultFolder_Click);
             // 
             // btnstop
             // 
             this.btnstop.Image = ((System.Drawing.Image)(resources.GetObject("btnstop.Image")));
             this.btnstop.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnstop.Location = new System.Drawing.Point(378, 47);
+            this.btnstop.Location = new System.Drawing.Point(378, 50);
             this.btnstop.Name = "btnstop";
             this.btnstop.Size = new System.Drawing.Size(131, 34);
             this.btnstop.TabIndex = 27;
             this.btnstop.Text = "Stop";
             this.btnstop.UseVisualStyleBackColor = true;
+            this.btnstop.Click += new System.EventHandler(this.btnstop_Click);
             // 
             // btnstart
             // 
@@ -192,6 +201,7 @@
             this.btnstart.TabIndex = 26;
             this.btnstart.Text = "Start";
             this.btnstart.UseVisualStyleBackColor = true;
+            this.btnstart.Click += new System.EventHandler(this.btnstart_Click);
             // 
             // groupBox2
             // 
@@ -326,6 +336,9 @@
             this.toolStripLabel11,
             this.lbsuccessC,
             this.toolStripSeparator6,
+            this.toolStripLabel4,
+            this.lbfailedC,
+            this.toolStripSeparator7,
             this.toolStripLabel2,
             this.lbretriesC});
             this.toolStrip1.Location = new System.Drawing.Point(0, 480);
@@ -456,6 +469,28 @@
             this.lbretriesC.Size = new System.Drawing.Size(14, 22);
             this.lbretriesC.Text = "0";
             // 
+            // tmupdatecount
+            // 
+            this.tmupdatecount.Interval = 1000;
+            this.tmupdatecount.Tick += new System.EventHandler(this.tmupdatecount_Tick);
+            // 
+            // toolStripLabel4
+            // 
+            this.toolStripLabel4.Name = "toolStripLabel4";
+            this.toolStripLabel4.Size = new System.Drawing.Size(38, 22);
+            this.toolStripLabel4.Text = "Failed";
+            // 
+            // lbfailedC
+            // 
+            this.lbfailedC.Name = "lbfailedC";
+            this.lbfailedC.Size = new System.Drawing.Size(14, 22);
+            this.lbfailedC.Text = "0";
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 25);
+            // 
             // FMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -532,5 +567,9 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripLabel toolStripLabel2;
         private System.Windows.Forms.ToolStripLabel lbretriesC;
+        private System.Windows.Forms.Timer tmupdatecount;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel4;
+        private System.Windows.Forms.ToolStripLabel lbfailedC;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
     }
 }
