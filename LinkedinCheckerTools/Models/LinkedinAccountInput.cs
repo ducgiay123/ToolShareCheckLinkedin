@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LinkedinCheckerTools.Models
 {
-    public class LinkedinAccountInput
+    public class LinkedinAccountInputet
     {
         public string Email { get; set; }
     }
