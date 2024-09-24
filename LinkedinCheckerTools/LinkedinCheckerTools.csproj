@@ -53,6 +53,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Singleton\PathSingleton.cs" />
+    <Compile Include="ViewModel\FMainDatagridDTO.cs" />
+    <Compile Include="ViewModel\FMainDatagridManager.cs" />
+    <Compile Include="ViewModel\FMainDatagridViewCellName.cs" />
     <Compile Include="View\FMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,8 +88,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModel\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -30,13 +30,27 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FMain));
             this.dtgrvdata = new System.Windows.Forms.DataGridView();
+            this.clstt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clemail = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clproxy = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cllinkedObj = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clstatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.numthreads = new System.Windows.Forms.NumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
+            this.btnimportproxy = new System.Windows.Forms.Button();
+            this.btnimportdata = new System.Windows.Forms.Button();
+            this.btnresultFolder = new System.Windows.Forms.Button();
+            this.btnstop = new System.Windows.Forms.Button();
+            this.btnstart = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.rdchecklkobj = new System.Windows.Forms.RadioButton();
+            this.rdcheckdie = new System.Windows.Forms.RadioButton();
+            this.rdchecklinked = new System.Windows.Forms.RadioButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cbbprxtype = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.chkuseproxy = new System.Windows.Forms.CheckBox();
+            this.numthreads = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.lbdataC = new System.Windows.Forms.ToolStripLabel();
@@ -55,29 +69,15 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel11 = new System.Windows.Forms.ToolStripLabel();
             this.lbsuccessC = new System.Windows.Forms.ToolStripLabel();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.rdchecklinked = new System.Windows.Forms.RadioButton();
-            this.rdcheckdie = new System.Windows.Forms.RadioButton();
-            this.rdchecklkobj = new System.Windows.Forms.RadioButton();
-            this.btnresultFolder = new System.Windows.Forms.Button();
-            this.btnstop = new System.Windows.Forms.Button();
-            this.btnstart = new System.Windows.Forms.Button();
-            this.btnimportproxy = new System.Windows.Forms.Button();
-            this.btnimportdata = new System.Windows.Forms.Button();
-            this.clstt = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clemail = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clproxy = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cllinkedObj = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clstatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.lbretriesC = new System.Windows.Forms.ToolStripLabel();
             ((System.ComponentModel.ISupportInitialize)(this.dtgrvdata)).BeginInit();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numthreads)).BeginInit();
-            this.groupBox3.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numthreads)).BeginInit();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dtgrvdata
@@ -95,6 +95,34 @@
             this.dtgrvdata.RowHeadersVisible = false;
             this.dtgrvdata.Size = new System.Drawing.Size(639, 314);
             this.dtgrvdata.TabIndex = 1;
+            // 
+            // clstt
+            // 
+            this.clstt.HeaderText = "#";
+            this.clstt.Name = "clstt";
+            this.clstt.Width = 60;
+            // 
+            // clemail
+            // 
+            this.clemail.HeaderText = "Email";
+            this.clemail.Name = "clemail";
+            // 
+            // clproxy
+            // 
+            this.clproxy.HeaderText = "Proxy";
+            this.clproxy.Name = "clproxy";
+            // 
+            // cllinkedObj
+            // 
+            this.cllinkedObj.HeaderText = "Linked Obj";
+            this.cllinkedObj.Name = "cllinkedObj";
+            this.cllinkedObj.Width = 120;
+            // 
+            // clstatus
+            // 
+            this.clstatus.HeaderText = "Status";
+            this.clstatus.Name = "clstatus";
+            this.clstatus.Width = 300;
             // 
             // groupBox1
             // 
@@ -114,21 +142,103 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Settings";
             // 
-            // numthreads
+            // btnimportproxy
             // 
-            this.numthreads.Location = new System.Drawing.Point(61, 20);
-            this.numthreads.Name = "numthreads";
-            this.numthreads.Size = new System.Drawing.Size(53, 23);
-            this.numthreads.TabIndex = 3;
+            this.btnimportproxy.Location = new System.Drawing.Point(517, 50);
+            this.btnimportproxy.Name = "btnimportproxy";
+            this.btnimportproxy.Size = new System.Drawing.Size(110, 34);
+            this.btnimportproxy.TabIndex = 30;
+            this.btnimportproxy.Text = "Import Proxy";
+            this.btnimportproxy.UseVisualStyleBackColor = true;
             // 
-            // label2
+            // btnimportdata
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 22);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(49, 15);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Threads";
+            this.btnimportdata.Location = new System.Drawing.Point(517, 12);
+            this.btnimportdata.Name = "btnimportdata";
+            this.btnimportdata.Size = new System.Drawing.Size(110, 34);
+            this.btnimportdata.TabIndex = 29;
+            this.btnimportdata.Text = "Import Data";
+            this.btnimportdata.UseVisualStyleBackColor = true;
+            // 
+            // btnresultFolder
+            // 
+            this.btnresultFolder.Image = ((System.Drawing.Image)(resources.GetObject("btnresultFolder.Image")));
+            this.btnresultFolder.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnresultFolder.Location = new System.Drawing.Point(378, 84);
+            this.btnresultFolder.Name = "btnresultFolder";
+            this.btnresultFolder.Size = new System.Drawing.Size(131, 34);
+            this.btnresultFolder.TabIndex = 28;
+            this.btnresultFolder.Text = "Result Folder";
+            this.btnresultFolder.UseVisualStyleBackColor = true;
+            // 
+            // btnstop
+            // 
+            this.btnstop.Image = ((System.Drawing.Image)(resources.GetObject("btnstop.Image")));
+            this.btnstop.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnstop.Location = new System.Drawing.Point(378, 47);
+            this.btnstop.Name = "btnstop";
+            this.btnstop.Size = new System.Drawing.Size(131, 34);
+            this.btnstop.TabIndex = 27;
+            this.btnstop.Text = "Stop";
+            this.btnstop.UseVisualStyleBackColor = true;
+            // 
+            // btnstart
+            // 
+            this.btnstart.Image = ((System.Drawing.Image)(resources.GetObject("btnstart.Image")));
+            this.btnstart.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnstart.Location = new System.Drawing.Point(378, 12);
+            this.btnstart.Name = "btnstart";
+            this.btnstart.Size = new System.Drawing.Size(131, 34);
+            this.btnstart.TabIndex = 26;
+            this.btnstart.Text = "Start";
+            this.btnstart.UseVisualStyleBackColor = true;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.rdchecklkobj);
+            this.groupBox2.Controls.Add(this.rdcheckdie);
+            this.groupBox2.Controls.Add(this.rdchecklinked);
+            this.groupBox2.Location = new System.Drawing.Point(9, 47);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(134, 86);
+            this.groupBox2.TabIndex = 9;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Tasks";
+            // 
+            // rdchecklkobj
+            // 
+            this.rdchecklkobj.AutoSize = true;
+            this.rdchecklkobj.Location = new System.Drawing.Point(6, 55);
+            this.rdchecklkobj.Name = "rdchecklkobj";
+            this.rdchecklkobj.Size = new System.Drawing.Size(117, 19);
+            this.rdchecklkobj.TabIndex = 2;
+            this.rdchecklkobj.Text = "Check Linked Obj";
+            this.rdchecklkobj.UseVisualStyleBackColor = true;
+            this.rdchecklkobj.CheckedChanged += new System.EventHandler(this.rdchecklkobj_CheckedChanged);
+            // 
+            // rdcheckdie
+            // 
+            this.rdcheckdie.AutoSize = true;
+            this.rdcheckdie.Location = new System.Drawing.Point(6, 37);
+            this.rdcheckdie.Name = "rdcheckdie";
+            this.rdcheckdie.Size = new System.Drawing.Size(78, 19);
+            this.rdcheckdie.TabIndex = 1;
+            this.rdcheckdie.Text = "Check Die";
+            this.rdcheckdie.UseVisualStyleBackColor = true;
+            this.rdcheckdie.CheckedChanged += new System.EventHandler(this.rdcheckdie_CheckedChanged);
+            // 
+            // rdchecklinked
+            // 
+            this.rdchecklinked.AutoSize = true;
+            this.rdchecklinked.Checked = true;
+            this.rdchecklinked.Location = new System.Drawing.Point(6, 18);
+            this.rdchecklinked.Name = "rdchecklinked";
+            this.rdchecklinked.Size = new System.Drawing.Size(95, 19);
+            this.rdchecklinked.TabIndex = 0;
+            this.rdchecklinked.TabStop = true;
+            this.rdchecklinked.Text = "Check Linked";
+            this.rdchecklinked.UseVisualStyleBackColor = true;
+            this.rdchecklinked.CheckedChanged += new System.EventHandler(this.rdchecklinked_CheckedChanged);
             // 
             // groupBox3
             // 
@@ -154,6 +264,7 @@
             this.cbbprxtype.Name = "cbbprxtype";
             this.cbbprxtype.Size = new System.Drawing.Size(87, 23);
             this.cbbprxtype.TabIndex = 5;
+            this.cbbprxtype.SelectedIndexChanged += new System.EventHandler(this.cbbprxtype_SelectedIndexChanged);
             // 
             // label5
             // 
@@ -173,6 +284,24 @@
             this.chkuseproxy.TabIndex = 0;
             this.chkuseproxy.Text = "Use Proxy";
             this.chkuseproxy.UseVisualStyleBackColor = true;
+            this.chkuseproxy.CheckedChanged += new System.EventHandler(this.chkuseproxy_CheckedChanged);
+            // 
+            // numthreads
+            // 
+            this.numthreads.Location = new System.Drawing.Point(61, 20);
+            this.numthreads.Name = "numthreads";
+            this.numthreads.Size = new System.Drawing.Size(53, 23);
+            this.numthreads.TabIndex = 3;
+            this.numthreads.ValueChanged += new System.EventHandler(this.numthreads_ValueChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 22);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(49, 15);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Threads";
             // 
             // toolStrip1
             // 
@@ -310,129 +439,6 @@
             this.lbsuccessC.Size = new System.Drawing.Size(14, 22);
             this.lbsuccessC.Text = "0";
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.rdchecklkobj);
-            this.groupBox2.Controls.Add(this.rdcheckdie);
-            this.groupBox2.Controls.Add(this.rdchecklinked);
-            this.groupBox2.Location = new System.Drawing.Point(9, 47);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(134, 86);
-            this.groupBox2.TabIndex = 9;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Tasks";
-            // 
-            // rdchecklinked
-            // 
-            this.rdchecklinked.AutoSize = true;
-            this.rdchecklinked.Checked = true;
-            this.rdchecklinked.Location = new System.Drawing.Point(6, 18);
-            this.rdchecklinked.Name = "rdchecklinked";
-            this.rdchecklinked.Size = new System.Drawing.Size(95, 19);
-            this.rdchecklinked.TabIndex = 0;
-            this.rdchecklinked.TabStop = true;
-            this.rdchecklinked.Text = "Check Linked";
-            this.rdchecklinked.UseVisualStyleBackColor = true;
-            // 
-            // rdcheckdie
-            // 
-            this.rdcheckdie.AutoSize = true;
-            this.rdcheckdie.Location = new System.Drawing.Point(6, 37);
-            this.rdcheckdie.Name = "rdcheckdie";
-            this.rdcheckdie.Size = new System.Drawing.Size(78, 19);
-            this.rdcheckdie.TabIndex = 1;
-            this.rdcheckdie.Text = "Check Die";
-            this.rdcheckdie.UseVisualStyleBackColor = true;
-            // 
-            // rdchecklkobj
-            // 
-            this.rdchecklkobj.AutoSize = true;
-            this.rdchecklkobj.Location = new System.Drawing.Point(6, 55);
-            this.rdchecklkobj.Name = "rdchecklkobj";
-            this.rdchecklkobj.Size = new System.Drawing.Size(117, 19);
-            this.rdchecklkobj.TabIndex = 2;
-            this.rdchecklkobj.Text = "Check Linked Obj";
-            this.rdchecklkobj.UseVisualStyleBackColor = true;
-            // 
-            // btnresultFolder
-            // 
-            this.btnresultFolder.Image = ((System.Drawing.Image)(resources.GetObject("btnresultFolder.Image")));
-            this.btnresultFolder.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnresultFolder.Location = new System.Drawing.Point(378, 84);
-            this.btnresultFolder.Name = "btnresultFolder";
-            this.btnresultFolder.Size = new System.Drawing.Size(131, 34);
-            this.btnresultFolder.TabIndex = 28;
-            this.btnresultFolder.Text = "Result Folder";
-            this.btnresultFolder.UseVisualStyleBackColor = true;
-            // 
-            // btnstop
-            // 
-            this.btnstop.Image = ((System.Drawing.Image)(resources.GetObject("btnstop.Image")));
-            this.btnstop.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnstop.Location = new System.Drawing.Point(378, 47);
-            this.btnstop.Name = "btnstop";
-            this.btnstop.Size = new System.Drawing.Size(131, 34);
-            this.btnstop.TabIndex = 27;
-            this.btnstop.Text = "Stop";
-            this.btnstop.UseVisualStyleBackColor = true;
-            // 
-            // btnstart
-            // 
-            this.btnstart.Image = ((System.Drawing.Image)(resources.GetObject("btnstart.Image")));
-            this.btnstart.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnstart.Location = new System.Drawing.Point(378, 12);
-            this.btnstart.Name = "btnstart";
-            this.btnstart.Size = new System.Drawing.Size(131, 34);
-            this.btnstart.TabIndex = 26;
-            this.btnstart.Text = "Start";
-            this.btnstart.UseVisualStyleBackColor = true;
-            // 
-            // btnimportproxy
-            // 
-            this.btnimportproxy.Location = new System.Drawing.Point(517, 50);
-            this.btnimportproxy.Name = "btnimportproxy";
-            this.btnimportproxy.Size = new System.Drawing.Size(110, 34);
-            this.btnimportproxy.TabIndex = 30;
-            this.btnimportproxy.Text = "Import Proxy";
-            this.btnimportproxy.UseVisualStyleBackColor = true;
-            // 
-            // btnimportdata
-            // 
-            this.btnimportdata.Location = new System.Drawing.Point(517, 12);
-            this.btnimportdata.Name = "btnimportdata";
-            this.btnimportdata.Size = new System.Drawing.Size(110, 34);
-            this.btnimportdata.TabIndex = 29;
-            this.btnimportdata.Text = "Import Data";
-            this.btnimportdata.UseVisualStyleBackColor = true;
-            // 
-            // clstt
-            // 
-            this.clstt.HeaderText = "#";
-            this.clstt.Name = "clstt";
-            this.clstt.Width = 60;
-            // 
-            // clemail
-            // 
-            this.clemail.HeaderText = "Email";
-            this.clemail.Name = "clemail";
-            // 
-            // clproxy
-            // 
-            this.clproxy.HeaderText = "Proxy";
-            this.clproxy.Name = "clproxy";
-            // 
-            // cllinkedObj
-            // 
-            this.cllinkedObj.HeaderText = "Linked Obj";
-            this.cllinkedObj.Name = "cllinkedObj";
-            this.cllinkedObj.Width = 120;
-            // 
-            // clstatus
-            // 
-            this.clstatus.HeaderText = "Status";
-            this.clstatus.Name = "clstatus";
-            this.clstatus.Width = 300;
-            // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
@@ -465,16 +471,17 @@
             this.Name = "FMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FMain";
+            this.Load += new System.EventHandler(this.FMain_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dtgrvdata)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numthreads)).EndInit();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numthreads)).EndInit();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
