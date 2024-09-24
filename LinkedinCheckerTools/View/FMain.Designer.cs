@@ -77,6 +77,7 @@
             this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
             this.lbfailedC = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dtgrvdata)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -98,7 +99,7 @@
             this.dtgrvdata.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.dtgrvdata.Name = "dtgrvdata";
             this.dtgrvdata.RowHeadersVisible = false;
-            this.dtgrvdata.Size = new System.Drawing.Size(639, 314);
+            this.dtgrvdata.Size = new System.Drawing.Size(656, 314);
             this.dtgrvdata.TabIndex = 1;
             // 
             // clstt
@@ -131,6 +132,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.btnimportproxy);
             this.groupBox1.Controls.Add(this.btnimportdata);
             this.groupBox1.Controls.Add(this.btnresultFolder);
@@ -142,7 +144,7 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Location = new System.Drawing.Point(14, 332);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(639, 139);
+            this.groupBox1.Size = new System.Drawing.Size(656, 139);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Settings";
@@ -343,7 +345,7 @@
             this.lbretriesC});
             this.toolStrip1.Location = new System.Drawing.Point(0, 480);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(667, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(684, 25);
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -491,21 +493,33 @@
             this.toolStripSeparator7.Name = "toolStripSeparator7";
             this.toolStripSeparator7.Size = new System.Drawing.Size(6, 25);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.label1.Location = new System.Drawing.Point(514, 91);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(134, 30);
+            this.label1.TabIndex = 31;
+            this.label1.Text = "@2024 tienichmmo.net\r\n   -- privatedware  --";
+            // 
             // FMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(667, 505);
+            this.ClientSize = new System.Drawing.Size(684, 505);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dtgrvdata);
             this.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.MaximizeBox = false;
             this.Name = "FMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FMain";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FMain_FormClosing);
             this.Load += new System.EventHandler(this.FMain_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dtgrvdata)).EndInit();
             this.groupBox1.ResumeLayout(false);
@@ -571,5 +585,6 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabel4;
         private System.Windows.Forms.ToolStripLabel lbfailedC;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
+        private System.Windows.Forms.Label label1;
     }
 }

@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LinkedinCheckerTools.Models
+namespace LinkedinCheckerTools.Enums
 {
-    public class LinkedinAccountInputet
+    public enum SolveCaptchaStatusCode
     {
-        public string Email { get; set; }
+        Success,
+        TimeTryExceeded,
+        Error
     }
 }
