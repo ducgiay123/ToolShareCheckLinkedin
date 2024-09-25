@@ -1,9 +1,12 @@
 ﻿using Leaf.xNet;
+using LinkedinCheckerTools.AdvcSelenium;
 using LinkedinCheckerTools.API;
+using LinkedinCheckerTools.Automation;
 using LinkedinCheckerTools.Config;
 using LinkedinCheckerTools.Models;
 using LinkedinCheckerTools.Request;
 using LinkedinCheckerTools.Singleton;
+using LinkedinCheckerTools.Utils;
 using LinkedinCheckerTools.ViewModel;
 using System;
 using System.Collections.Concurrent;
@@ -36,16 +39,21 @@ namespace LinkedinCheckerTools.View
         private FMainDatagridManager fMainDatagridManager;
         private string SavePath;
         private ProxyType _ProxyType;
-        public FMain()
+        public FMain(AccountLoginResult accountLoginResult)
         {
             InitializeComponent();
             Control.CheckForIllegalCrossThreadCalls = false;
+            this.Text = $"Linkedin AIO Tools v{ProductVersion} | {accountLoginResult.LoginAccountInfo.UserName} / Expired : {accountLoginResult.LoginAccountInfo.ExpiredDate}";
         }
 
         private void FMain_Load(object sender, EventArgs e)
         {
+            //this.Text = $"Linkedin AIO Tools v{ProductVersion}";
             LoadUISettings();
             this.fMainDatagridManager = new FMainDatagridManager(this.dtgrvdata);
+            ChromeUtils.getWidthScreen = Screen.PrimaryScreen.Bounds.Width;
+            ChromeUtils.getHeightScreen = Screen.PrimaryScreen.Bounds.Height;
+            CNT_CaptchaQuestionUtils.LoadAllQuestion();
         }
         private void LoadUISettings()
         {
@@ -97,7 +105,16 @@ namespace LinkedinCheckerTools.View
         {
             MainFormUISettings.TaskType = 3;
         }
-
+        private void InitRangeWindow(int threadsCount)
+        {
+            ChromeUtils.getWidthChrome = (2 * ChromeUtils.getWidthScreen) / 8;
+            ChromeUtils.getHeightChrome = ChromeUtils.getHeightScreen / 2;
+            int maxThread = Convert.ToInt32(threadsCount);
+            for (int i = 0; i < (int)maxThread; i++)
+            {
+                ChromeUtils.listPossitionApp.Add(0);
+            }
+        }
         private void btnstart_Click(object sender, EventArgs e)
         {
             cancellationTokenSource = new CancellationTokenSource();
@@ -110,6 +127,7 @@ namespace LinkedinCheckerTools.View
             SavePath = Application.StartupPath + "\\result\\result_" + datetimnow;
             Directory.CreateDirectory(SavePath);
             int Maxthreads = (int)numthreads.Value;
+            InitRangeWindow(Maxthreads);
             new Thread(() =>
             {
                 ThreadPool.SetMinThreads(Maxthreads, Maxthreads);
@@ -124,10 +142,9 @@ namespace LinkedinCheckerTools.View
                     {
                         while (!cancellationTokenSource.IsCancellationRequested && !Dataqueue.IsEmpty)
                         {
-                            //int indexPos = ChromeUtils.GetIndexOfPossitionApp();
-                            //Start(indexPos);
-                            Start();
-                            //ChromeUtils.FillIndexPossition(indexPos);
+                            int indexPos = ChromeUtils.GetIndexOfPossitionApp();
+                            Start(indexPos);
+                            ChromeUtils.FillIndexPossition(indexPos);
                         }
                     });
                     array[i].Start();
@@ -139,6 +156,7 @@ namespace LinkedinCheckerTools.View
                         array[j].Join();
                     }
                 }
+                CloseAllChrome();
                 Task.Delay(TimeSpan.FromSeconds(3)).Wait();
                 tmupdatecount.Stop();
                 SaveRemainData();
@@ -203,7 +221,7 @@ namespace LinkedinCheckerTools.View
         {
             return ProxyPool.RandomItemInList();
         }
-        private void Start()
+        private void Start(int indexchrome)
         {
             string data = string.Empty;
             string proxy = string.Empty;
@@ -246,11 +264,123 @@ namespace LinkedinCheckerTools.View
                     }
                     else
                     {
-                        // do chrome task
+                        AdvcWebdriverConfig advcWebdriverConfig = new AdvcWebdriverConfig
+                        {
+                            Extensions = new List<string>(),
+                            IsDisableImageLoading = false,
+                            IsHeadless = false,
+                            MobileDeviceFake = String.Empty,
+                            ChromeOptions = null,
+                            FakeMobileDevice = false,
+                            Position = indexchrome,
+                            ProfilePath = String.Empty,
+                            ProxyConfig = new WebDriverProxyConfig(),
+                            UseChromenium = true,
+                            ExtensionPaths = new List<string>(),
+                            IsSingleThread = false,
+                            DriverPath = PathSingleton.DefaultDriverExecutablePath
+                        };
+                        if (!string.IsNullOrEmpty(proxy))
+                        {
+                            fMainDatagrid.Proxy = proxy;
+                            advcWebdriverConfig.ProxyConfig.TypeProxy = WebDriverProxyConfig.ProxyType.Http;
+                            advcWebdriverConfig.ProxyConfig.ProxyUrl = proxy;
+                            advcWebdriverConfig.ProxyConfig.UseProxy = true;
+                            WebDriverProxyConfig.Proxy WebProxy = WebDriverProxyConfig.Proxy.Parse(proxy);
+                            if (string.IsNullOrEmpty(WebProxy.UserName))
+                            {
+                                advcWebdriverConfig.ProxyConfig.TypeProxy = WebDriverProxyConfig.ProxyType.Http;
+                            }
+                            else
+                            {
+                                advcWebdriverConfig.ProxyConfig.TypeProxy = WebDriverProxyConfig.ProxyType.ProxyServer;
+                            }
+                        }
+                        string guid_chrome = Guid.NewGuid().ToString();
+                        advcWebdriverConfig.Extensions.Add(PathSingleton.AuthProxyExtensionPath);
+                        AdvcWebDriver advcWebDriver = new AdvcWebDriver();
+                        fMainDatagrid.Status = "init chrome...";
+                        CreateChromeDriverResult createChromeDriverResult = new CreateChromeDriverResult();
+                        createChromeDriverResult = advcWebDriver.CreateNewDriver(advcWebdriverConfig);
+                        if (createChromeDriverResult.Chrome == null)
+                        {
+                            fMainDatagrid.Status = "Chrome error !";
+                            Dataqueue.Enqueue(data);
+                            goto EndInvoke;
+                        }
+                        GlobalVariables.Drivers.Add(guid_chrome, createChromeDriverResult.Chrome);
+                        if (createChromeDriverResult.Chrome.WindowHandles.Count >= 2)
+                        {
+                            createChromeDriverResult.Chrome.Close();
+                            createChromeDriverResult.Chrome.SwitchTo().Window(createChromeDriverResult.Chrome.WindowHandles.Last());
+                        }
+                        AutomationOptions.LinkedinRecoverEmailOptions linkedinRecoverEmailOptions = new AutomationOptions.LinkedinRecoverEmailOptions
+                        {
+                            Chrome = createChromeDriverResult.Chrome,
+                            Datagrid = fMainDatagrid,
+                            Email = email
+                        };
+                        LinkedinRecoverEmailAutomation linkedinRecoverEmailAutomation = new LinkedinRecoverEmailAutomation();
+                        AutomationResult.LinkedinRecoverEmailResult linkedinRecoverEmailResult = linkedinRecoverEmailAutomation.Recover(linkedinRecoverEmailOptions);
+                        if(linkedinRecoverEmailResult.RecoverEmailStatusCode == Enums.LinkedinRecoverEmailStatusCode.Error)
+                        {
+                            RetriesC++;
+                            Dataqueue.Enqueue(data);
+                            goto EndInvoke;
+                        }
+                        fMainDatagrid.Status = $"check linked obj {linkedinRecoverEmailResult.RecoverEmailStatusCode} !";
+                        if (linkedinRecoverEmailResult.RecoverEmailStatusCode == Enums.LinkedinRecoverEmailStatusCode.Success)
+                        {
+                            string linkedobj = string.Empty;
+                            if(linkedinRecoverEmailResult.LinkedObjs.Count > 0)
+                            {
+                                linkedobj = string.Join("|", linkedinRecoverEmailResult.LinkedObjs);
+                            }
+                            fMainDatagrid.LinkedObj = linkedobj;
+                            SuccessC++;
+                            string saveformat = $"{data}|{linkedinRecoverEmailResult.LinkedObjs.Count}_LK|{linkedobj}";
+                            SaveFile(SavePath + "\\SuccessCheckLinkedObj.txt", saveformat);
+                            saveformat = string.Empty;
+                            linkedobj = string.Empty;
+                        }
+                        if(linkedinRecoverEmailResult.RecoverEmailStatusCode == Enums.LinkedinRecoverEmailStatusCode.Failed)
+                        {
+                            SaveFile(SavePath + "\\FailedCheckLinkedObj.txt", data);
+                            FailureC++;
+                        }
+                    EndInvoke:
+                        Task.Delay(TimeSpan.FromSeconds(1)).Wait();
+                        try
+                        {
+                            createChromeDriverResult.Chrome.Quit();
+                            createChromeDriverResult.Chrome.Dispose();
+                            advcWebdriverConfig = null;
+                            if (GlobalVariables.Drivers.ContainsKey(guid_chrome))
+                            {
+                                GlobalVariables.Drivers.Remove(guid_chrome);
+                            }
+                        }
+                        catch
+                        {
+
+                        }
+                        try
+                        {
+                            if (createChromeDriverResult != null)
+                            {
+                                Process process_kill = Process.Start(new ProcessStartInfo()
+                                {
+                                    FileName = "taskkill",
+                                    Arguments = $"/f /pid {createChromeDriverResult.ProcessId} /t",
+                                    CreateNoWindow = true,
+                                    WindowStyle = ProcessWindowStyle.Hidden
+                                });
+                                process_kill.Dispose();
+                            }
+                        }
+                        catch { }
                     }
-                   
                 }
-                
             }
             catch
             {
@@ -349,6 +479,37 @@ namespace LinkedinCheckerTools.View
                 }));
             }
             catch { }
+        }
+
+        private void FMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if(MessageBox.Show(this,"Are your want to exit ?", "exit confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                //Application.Exit();
+                cancellationTokenSource.Cancel();
+                CloseAllChrome();
+                Environment.Exit(0);
+            }
+            else
+            {
+                e.Cancel = true;
+            }
+        }
+        private void CloseAllChrome()
+        {
+            if(GlobalVariables.Drivers.Count > 0)
+            {
+                foreach(var driver in GlobalVariables.Drivers)
+                {
+                    try
+                    {
+                        driver.Value.Quit();
+                        driver.Value.Dispose();
+                    }
+                    catch { }
+                }
+            }
+            GlobalVariables.Drivers.Clear();
         }
     }
 }

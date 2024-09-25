@@ -16,7 +16,7 @@ namespace LinkedinCheckerTools
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new View.FMain());
+            Application.Run(new View.FLogin());
         }
     }
 }
